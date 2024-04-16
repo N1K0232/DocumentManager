@@ -17,6 +17,10 @@
         {
             "library": "font-awesome@6.5.2",
             "destination": "wwwroot/lib/font-awesome"
+        },
+        {
+            "library": "marked@12.0.1",
+            "destination": "wwwroot/lib/marked"
         }
     ]
 }

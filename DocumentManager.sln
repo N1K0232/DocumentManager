@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager.BusinessLayer", "src\DocumentManager.BusinessLayer\DocumentManager.BusinessLayer.csproj", "{CC6D0328-FBAC-4353-824B-6B1477BEFC8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager.Shared", "src\DocumentManager.Shared\DocumentManager.Shared.csproj", "{DF72289A-0914-48C3-A885-FD8B056FB384}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +24,19 @@ Global
 		{92A87FBB-EC32-4DE6-87F1-8DFAEFE1E94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A87FBB-EC32-4DE6-87F1-8DFAEFE1E94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A87FBB-EC32-4DE6-87F1-8DFAEFE1E94D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6D0328-FBAC-4353-824B-6B1477BEFC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6D0328-FBAC-4353-824B-6B1477BEFC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6D0328-FBAC-4353-824B-6B1477BEFC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6D0328-FBAC-4353-824B-6B1477BEFC8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF72289A-0914-48C3-A885-FD8B056FB384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF72289A-0914-48C3-A885-FD8B056FB384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF72289A-0914-48C3-A885-FD8B056FB384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF72289A-0914-48C3-A885-FD8B056FB384}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA830FD3-F8CC-4C5A-8F3F-4198B8886FEB}
 	EndGlobalSection
 EndGlobal

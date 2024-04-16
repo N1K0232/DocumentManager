@@ -1,3 +1,7 @@
+using DocumentManager.BusinessLayer.Settings;
+using Microsoft.Extensions.Options;
+using TinyHelpers.AspNetCore.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 ConfigureServices(builder.Services, builder.Configuration, builder.Environment, builder.Host);
 
@@ -8,12 +12,18 @@ await app.RunAsync();
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment, IHostBuilder host)
 {
+    var appSettings = services.ConfigureAndGet<AppSettings>(configuration, nameof(AppSettings));
+
+    services.AddRequestLocalization(appSettings.SupportedCultures);
     services.AddRazorPages();
     services.AddWebOptimizer(minifyCss: true, minifyJavaScript: environment.IsProduction());
 }
 
 void Configure(IApplicationBuilder app, IWebHostEnvironment environment, IServiceProvider services)
 {
+    var appSettings = services.GetRequiredService<IOptions<AppSettings>>().Value;
+    environment.ApplicationName = appSettings.ApplicationName;
+
     app.UseHttpsRedirection();
 
     if (!environment.IsDevelopment())

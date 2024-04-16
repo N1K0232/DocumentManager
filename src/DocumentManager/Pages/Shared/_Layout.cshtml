@@ -1,9 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using System.Reflection;
+
+@inject IWebHostEnvironment environment
+
+@{
+    var assembly = Assembly.GetExecutingAssembly();
+    var version = assembly.GetAttribute<BuildDateTimeAttribute>(a => a.DateTime.ToString("yyyyMMdd.HHmm"));
+    var author = assembly.GetAttribute<AssemblyCompanyAttribute>(a => a.Company);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Document Manager</title>
+    <title>@($"{ViewData["Title"]} - {environment.ApplicationName}".Trim().TrimStart('-').Trim())</title>
+
+    <partial name="_OpenGraph" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" asp-append-version="true" />
@@ -17,6 +29,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
+                <a class="navbar-brand" asp-page="/Index">@environment.ApplicationName</a>
             </div>
         </nav>
     </header>
@@ -27,15 +40,27 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.UtcNow.Year - Document Manager
+    <footer class="border-top footer">
+        <div class="container text-body-secondary">
+            <div class="row d-flex flex-wrap justify-content-between align-items-center">
+                <div class="align-items-center col d-flex align-items-center">
+                    &copy; @author
+                    <a class="nav-link nav-link-bottom ps-3" title="Twitter" href="https://twitter.com/N1K0232" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                    <a class="nav-link nav-link-bottom ps-3" title="GitHub" href="https://github.com/N1K0232" target="_blank"><i class="bi bi-github"></i></a>
+                    <a class="nav-link nav-link-bottom ps-3" title="Twitch" href="https://www.twitch.tv/N1K0232" target="_blank"><i class="bi bi-twitch"></i></a>
+                </div>
+                <div class="nav col justify-content-end d-flex align-items-center">
+                    <small>@version</small>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/marked/marked.min.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

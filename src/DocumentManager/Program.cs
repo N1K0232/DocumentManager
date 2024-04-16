@@ -1,25 +1,38 @@
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages();
+ConfigureServices(builder.Services, builder.Configuration, builder.Environment, builder.Host);
 
 var app = builder.Build();
+Configure(app, app.Environment, app.Services);
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+await app.RunAsync();
+
+void ConfigureServices(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment, IHostBuilder host)
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    services.AddRazorPages();
+    services.AddWebOptimizer(minifyCss: true, minifyJavaScript: environment.IsProduction());
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+void Configure(IApplicationBuilder app, IWebHostEnvironment environment, IServiceProvider services)
+{
+    app.UseHttpsRedirection();
 
-app.UseRouting();
+    if (!environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error");
+        app.UseHsts();
+    }
 
-app.UseAuthorization();
+    app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+    app.UseWebOptimizer();
 
-app.MapRazorPages();
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
 
-app.Run();
+    app.UseRouting();
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapRazorPages();
+    });
+}
